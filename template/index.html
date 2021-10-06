@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+    <title>EMOTION DETECTION</title>
+    <script>
+        window.onload = () => {
+            window.history.replaceState("", "")
+        }
+    </script>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Open Sans', sans-serif;
+            user-select: none;
+        }
+
+        #whole {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #form {
+            margin-top: -50px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #feild {
+            width: 50%;
+            height: 80px;
+            background-color: white;
+            border: .1px solid grey;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #result {
+            width: 100%;
+            height: 55vh;
+            background-color: blueviolet;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #getbut {
+            height: 100%;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-left: .1px solid grey;
+            border-right: none;
+            border-top: none;
+            border-bottom: none;
+            width: 30%;
+            background-color: white;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        #getbut:hover {
+            background-color: whitesmoke;
+        }
+
+        #shc>div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #img {
+
+            width: 40px;
+            height: 40px;
+        }
+
+        #img>img {
+            color: rgb(179, 194, 194);
+            filter: hue-rotate(90deg) contrast(10);
+            width: 100%;
+            height: 100%;
+        }
+
+        #shc>div>span {
+            font-size: 1.2rem;
+            margin: 10px;
+            width: fit-content;
+        }
+
+        #inp {
+            visibility: hidden;
+            width: 0px;
+        }
+
+        #two {
+            visibility: hidden;
+            height: 0px;
+            width: 0px;
+        }
+
+        #two.on {
+            visibility: visible;
+            height: max-content;
+            width: fit-content;
+        }
+
+        #one.off {
+            visibility: hidden;
+            height: 0px;
+            width: 0px;
+        }
+
+        #result>#rim {
+            height: 250px;
+            width: 250px;
+        }
+
+        #rim>img {
+            height: 100%;
+            width: 100%;
+        }
+
+        #result>span {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.5rem;
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+
+        header {
+            height: 70px;
+            background-color: blueviolet;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        #titl {
+            font-size: 1.8rem;
+            font-family: 'Lato', sans-serif;
+            text-transform: capitalize;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="whole">
+        <header>
+            <div id="titl">EMOTION DETECTION</div>
+        </header>
+        <div id="result">
+            {%if result%}
+            <div id="rim">
+                <img src="{{img}}">
+            </div>
+            <span>{{pred}}</span>
+            {% endif %}
+        </div>
+        <form action="." method="POST" enctype="multipart/form-data" id="form">
+            <div id="feild">
+                <input type="file" name="audio" id="inp" required />
+                <div id="shc">
+                    <div id="one">
+                        <div id="img">
+                            <img
+                                src="https://firebasestorage.googleapis.com/v0/b/myproject-d9de9.appspot.com/o/file.png?alt=media&token=9259f66a-5142-4f36-8e63-dbc8aac6b39c" />
+                        </div>
+                        <span>Choose file</span>
+                    </div>
+                    <div id="two">
+                        <span id="fname"></span>
+                    </div>
+                </div>
+
+                <button type="submit" id="getbut">Analyze</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById("shc").addEventListener("click", (e) => {
+            document.getElementById("inp").click()
+        })
+        document.getElementById("inp").addEventListener("input", (e) => {
+            document.getElementById("one").classList.toggle("off")
+            document.getElementById("two").classList.toggle("on")
+            document.getElementById("fname")
+            document.getElementById("fname").innerHTML = e.target.files[0].name
+        })
+    </script>
+</body>
+
+</html>
